@@ -48,8 +48,24 @@ const Navbar = () => {
           
           {/* Brand Logo & Name */}
           <Link to={user ? "/dashboard" : "/"} className="flex items-center gap-2.5 group">
-            <div className="p-2 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl shadow-md group-hover:scale-105 transition-transform duration-200">
-              <ShieldAlert className="h-5 w-5 text-white" />
+            <div className="p-1.5 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl shadow-md group-hover:scale-105 transition-transform duration-200">
+              <svg className="h-6 w-6 text-white animate-pulse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="url(#nav-shield-gradient)" />
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#60a5fa" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="12" cy="11" r="2.5" fill="#ffffff" />
+                <circle cx="12" cy="6" r="1.5" fill="#93c5fd" />
+                <circle cx="8" cy="13" r="1.5" fill="#93c5fd" />
+                <circle cx="16" cy="13" r="1.5" fill="#93c5fd" />
+                <line x1="12" y1="7.5" x2="12" y2="9.5" stroke="#bfdbfe" strokeWidth="1" />
+                <line x1="9.5" y1="12.5" x2="11" y2="11.5" stroke="#bfdbfe" strokeWidth="1" />
+                <line x1="14.5" y1="12.5" x2="13" y2="11.5" stroke="#bfdbfe" strokeWidth="1" />
+                <defs>
+                  <linearGradient id="nav-shield-gradient" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="#1e3a8a" />
+                    <stop offset="100%" stopColor="#1d4ed8" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
             <div>
               <span className="text-lg font-bold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
