@@ -17,6 +17,8 @@ import { useParams, Link } from 'react-router-dom';
 import { getContractById } from '../services/api';
 import GraphVisualizer from '../components/GraphVisualizer';
 import { RiskScoreBadge, MarketStatusBadge } from '../components/RiskBadge';
+import CopyButton from '../components/CopyButton';
+import ExportReportButton from '../components/ExportReportButton';
 import { 
   FileText, 
   ShieldAlert, 
@@ -142,34 +144,42 @@ const ContractDetails = () => {
         <div className="lg:col-span-3 space-y-4">
           
           {/* Tab Selector Links */}
-          <div className="flex border-b border-navy-800 space-x-5 text-xs font-bold">
-            <button
-              onClick={() => setActiveTab('risks')}
-              className={`pb-3 transition-colors relative cursor-pointer ${
-                activeTab === 'risks' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              Risk Analysis ({clauses.length})
-              {activeTab === 'risks' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>}
-            </button>
-            <button
-              onClick={() => setActiveTab('summary')}
-              className={`pb-3 transition-colors relative cursor-pointer ${
-                activeTab === 'summary' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              Executive Summary
-              {activeTab === 'summary' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>}
-            </button>
-            <button
-              onClick={() => setActiveTab('graph')}
-              className={`pb-3 transition-colors relative cursor-pointer ${
-                activeTab === 'graph' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              Clause Relationship Graph
-              {activeTab === 'graph' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>}
-            </button>
+          <div className="flex items-center border-b border-navy-800 text-xs font-bold">
+            <div className="flex space-x-5">
+              <button
+                onClick={() => setActiveTab('risks')}
+                className={`pb-3 transition-colors relative cursor-pointer ${
+                  activeTab === 'risks' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                Risk Analysis ({clauses.length})
+                {activeTab === 'risks' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>}
+              </button>
+              <button
+                onClick={() => setActiveTab('summary')}
+                className={`pb-3 transition-colors relative cursor-pointer ${
+                  activeTab === 'summary' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                Executive Summary
+                {activeTab === 'summary' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>}
+              </button>
+              <button
+                onClick={() => setActiveTab('graph')}
+                className={`pb-3 transition-colors relative cursor-pointer ${
+                  activeTab === 'graph' ? 'text-blue-500' : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                Clause Relationship Graph
+                {activeTab === 'graph' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500 rounded-full"></span>}
+              </button>
+            </div>
+
+            {/* Export button — always rendered to prevent row height shift,
+                visibility toggled based on active tab */}
+            <div className={`ml-auto pb-1 transition-opacity duration-150 ${activeTab === 'summary' ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+              <ExportReportButton contract={contract} />
+            </div>
           </div>
 
           {/* TAB 1 CONTENT: RISK ANALYSIS LIST */}
@@ -206,7 +216,8 @@ const ContractDetails = () => {
                     </div>
 
                     {/* Verbatim Clause Text */}
-                    <div className="bg-navy-950/50 border border-navy-850/80 rounded-lg p-3 text-[10px] font-mono text-slate-300 leading-relaxed max-h-48 overflow-y-auto">
+                    <div className="relative group bg-navy-950/50 border border-navy-850/80 rounded-lg p-3 text-[10px] font-mono text-slate-300 leading-relaxed max-h-48 overflow-y-auto">
+                      <CopyButton text={clause.clauseText} />
                       "{clause.clauseText}"
                     </div>
 
@@ -232,7 +243,7 @@ const ContractDetails = () => {
           {/* TAB 2 CONTENT: EXECUTIVE SUMMARY */}
           {activeTab === 'summary' && (
             <div className="space-y-4">
-              
+
               {/* Main Summary Blocks */}
               <div className="glass-card p-4 md:p-5 space-y-4">
                 
